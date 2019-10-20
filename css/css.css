@@ -1,0 +1,27 @@
+
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+  .card {
+  text-align: center;
+}
+
+@media (max-width: 990px) {
+  .resizeimg {
+    height: auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .resizeimg {
+    width: auto;
+    height: 350px;
+  }
+}
+      
