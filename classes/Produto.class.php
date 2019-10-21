@@ -1,27 +1,11 @@
-<?php require_once'autoload.php';
+<?php require_once 'autoload.php';
 
-class produto {
-    private $id,
-    $nome,
+class Produto extends AbsCodigo {
+    private $nome,
     $descricao,
     $localizacao,
-    $id_usuario,
     $foto;
-
-    function produto($codigo){
-        $sql = "select * from produto p where p.id = $codigo";
-        $vetor = $this->listar($sql);
-        $this->id = $vetor[0][0];
-        $this->nome = $vetor[0][1];
-        $this->descricao = $vetor[0][2];
-        $this->localizacao = $vetor[0][3];
-        $this->foto = $vetor[0][4];
-        $this->id_usuario = $vetor[0][5];
-    }
-
-    function getId() {
-        return $this->id;
-    }
+   
 
     function getNome() {
         return $this->nome;
@@ -35,13 +19,6 @@ class produto {
         return $this->localizacao;
     }
 
-    function getId_usuario() {
-        return $this->id_usuario;
-    }
-
-    function setId($id) {
-        $this->id=$id;
-    }
 
     function setNome($nome) {
         $this->nome=$nome;
@@ -53,10 +30,6 @@ class produto {
 
     function setLocalizacao($localizacao) {
         $this->localizacao=$localizacao;
-    }
-
-    function setId_usuario($id_usuario) {
-        $this->id_usuario=$id_usuario;
     }
 
     function getFoto() {

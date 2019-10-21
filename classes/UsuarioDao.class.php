@@ -6,25 +6,20 @@
 	 * INSERT
 	 */
 
-	public static function Insert(Usuario $usuario)
-	{
-		$sql = "INSERT INTO usuario (nome, sobrenome, cpf, dataNasc, email, telefone, sexo, nProtocolo, senha, foto)
-		VALUES (:nome, :sobrenome, :cpf, :dataNasc, :email, :telefone, :sexo, :nProtocolo, :senha, :foto)";
-
-		$params = [
-			'nome' => $usuario->getNome(),
-			'sobrenome' => $usuario->getSobrenome(),
-			'cpf' => $usuario->getCpf(),
-            'dataNasc' => $usuario->getDataNasc(),
-            'email' => $usuario->getEmail(),
-            'telefone' => $usuario->getTelefone(),
-            'sexo' => $usuario->getSexo(),
-            'nProtocolo' => $usuario->getNProtocolo(),
-            'senha' => $usuario->getSenha(),
-            'foto' => $usuario->getFoto(),
-		];
-
-		return StatementBuilder::insert($sql, $params);
+	public static function Insert(Usuario $usuario) {
+		return StatementBuilder::insert("INSERT INTO usuario (nome, sobrenome, CPF, dataNasc, email, telefone, sexo, nProtocolo, senha, foto) VALUES (:nome, :sobrenome, :CPF, :dataNasc, :email, :telefone, :sexo, :nProtocolo, :senha, :foto)",
+			[
+				'nome' => $usuario->getNome(),
+				'sobrenome' => $usuario->getSobrenome(),
+				'CPF' => $usuario->getCpf(),
+				'dataNasc' => $usuario->getDataNasc(),
+				'email' => $usuario->getEmail(),
+				'telefone' => $usuario->getTelefone(),
+				'sexo' => $usuario->getSexo(),
+				'nProtocolo' => $usuario->getNProtocolo(),
+				'senha' => $usuario->getSenha(),
+				'foto' => $usuario->getFoto()
+			]);
     }
     
     /**
@@ -91,13 +86,18 @@
 	public static function Update(Usuario $usuario)
 	{
 		return StatementBuilder::update(
-			"UPDATE Usuario SET nome = :nome, sobrenome = :sobrenome, senha = :senha, alimentacao = :alimentacao WHERE matricula = :matricula",
+			"UPDATE Usuario SET nome = :nome, sobrenome = :sobrenome, CPF = :CPF, senha = :senha, dataNasc = :dataNasc, email = :email, telefone = :telefone, sexo = :sexo, foto = :foto WHERE id = :id",
 			[
 				'nome' => $usuario->getNome(),
-				'tipo' => $usuario->getTipo(),
+				'sobrenome' => $usuario->getSobrenome(),
+				'CPF' => $usuario->getCpf(),
 				'senha' => $usuario->getSenha(),
-				'alimentacao' => $usuario->getAlimentacao(),
-				'matricula' => $usuario->getCodigo()
+				'dataNasc' => $usuario->getDataNasc(),
+				'email' => $usuario->getEmail(),
+				'telefone' => $usuario->getTelefone(),
+				'sexo' => $usuario->getSexo(),
+				'foto' => $usuario->getFoto(),
+				'id' => $usuario->getCodigo()
 			]
 		);
 	}
