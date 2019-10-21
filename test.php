@@ -1,3 +1,4 @@
 <?php
-    mail("riandziuba@gmail.com", "Funciona?", "Sim");
+  #  mail("riandziuba@gmail.com", "Funciona?", "Sim");
+  echo count(null);
 ?>

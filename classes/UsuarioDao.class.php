@@ -77,7 +77,16 @@
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
-    }
+	}
+	/**
+	 * Verifica se o usuario está cadastrado
+	 * @return todos retorna a soma das contas encontradas email e cpf
+	 */
+	public static function VerificaCadastro($usuario){
+		$contadorEmail = count(UsuarioDao::Select('email', $usuario->getEmail()));
+		$contadorCPF = count(UsuarioDao::Select('CPF', $usuario->getCpf()));
+		return $total = $contadorCPF + $contadorEmail;
+	}
     
     /**
 	 * UPDATE

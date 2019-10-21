@@ -2,8 +2,6 @@
 require_once "autoload.php";
 
 $acao = isset($_POST['acao']) ? $_POST['acao'] : 0;
-
-
 $nome = isset($_POST['nome']) ? $_POST['nome'] : 0;
 $sobrenome = isset($_POST['sobrenome']) ? $_POST['sobrenome'] : 0;
 $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : 0;
@@ -24,23 +22,31 @@ $referencia = isset($_POST['referencia']) ? $_POST['referencia'] : 0;
 $log = isset($_POST['log']) ? $_POST['log'] : 0;
 $senha = isset($_POST['senha']) ? $_POST['senha'] : sha1("0000");
 $senha = sha1($senha);
-$user = new usuario(0);
+
 $endereco = new endereco(0);
 if ($acao == "crie") {
-    $sql = "select count(id) from usuario where CPF = '" . $cpf . "' OR email = '" . $email . "' group by id";
-    $verificar = 0;
-    $banco = new banco;
-    $verificar = $banco->select($sql);
-    if ($verificar[0][0] != 0) {
+    $usuario = new usuario();
+    $usuario->setNome($nome);
+    $usuario->setSobrenome($sobrenome);
+    $usuario->setCpf($cpf);
+    $usuario->setDataNasc($dtnascimento);
+    $usuario->setEmail($email);
+    $usuario->setTelefone($telefone);
+    $usuario->setSexo($sexo);
+    $usuario->setNProrocolo($numprot);
+    $usuario->setSenha($senha);
+    $usuario->setFoto(null);
+    
+    $verificar = UsuarioDao::VerificaCadastro($usuario);
+    if ($verificar != 0) {
         echo "CPF ou email já utilizados";
     } else {
-        $valida = $user->inserir($nome, $sobrenome, $cpf, $senha, $dtnascimento, $email, $telefone, $sexo, $numprot,null);
+        $valida = UsuarioDao::Insert($usuario);
         if ($valida !== true) {
-            echo "Cadastro de usuario falhou tente novamente mais tarde: $valida";
+            echo "Cadastro de usuario falhou tente novamente mais tarde!!";
         }
-        $sql = "SELECT id from usuario where cpf = '$cpf'";
-        $codigo = $banco->select($sql);
-        #var_dump($codigo);
+        $usuario = UsuarioDao::Popula(UsuarioDao::Select('CPF', $usuario->getCpf()));
+        $endereco = 
         $valida = $endereco->inserir($cep, $rua, $numero, $bairro, $complemento, $cidade, $referencia, $codigo[0][0]);
         if ($valida !== true) {
             echo "Cadastro de endereço falhou tente novamente mais tarde: $valida";

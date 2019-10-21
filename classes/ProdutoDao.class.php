@@ -6,13 +6,14 @@
 	 * INSERT
 	 */
 
-	public static function Insert(Produto $produto) {
-		return StatementBuilder::insert("INSERT INTO produto (nome, descricao, localizacao, fotos, email, telefone, sexo, nProtocolo, senha, foto) VALUES (:nome, :descricao, :localizacao, :fotos, :email, :telefone, :sexo, :nProtocolo, :senha, :foto)",
+	public static function Insert(Produto $produto, $idUsuario, $idEndereco) {
+		return StatementBuilder::insert("INSERT INTO produto (nome, descricao, localizacao, fotos, idUsuario) VALUES (:nome, :descricao, :localizacao, :fotos, :idUsuario)",
 			[
 				'nome' => $produto->getNome(),
 				'descricao' => $produto->getDescricao(),
-				'localizacao' => $produto->getLocalizacao(),
-				'fotos' => $produto->getFoto()
+				'localizacao' => $idEndereco, 
+				'fotos' => $produto->getFoto(),
+				'idUsuario' => $idUsuario
             ]
         );
     }
@@ -27,7 +28,6 @@
 		$produto->setCodigo($row['id']);
 		$produto->setNome($row['nome']);
 		$produto->setDescricao($row['descricao']);
-        $produto->setLocalizacao($row['CPF']);
         $produto->setFoto($row['fotos']);
 		return $produto;
 	}
@@ -71,7 +71,7 @@
 
 	public static function Update(Produto $produto) {
 		return StatementBuilder::update(
-			"UPDATE Usuario SET nome = :nome, descricao = :descricao, localizacao = :localizacao, fotos = :fotos, dataNasc = :dataNasc, email = :email, telefone = :telefone, sexo = :sexo, foto = :foto WHERE id = :id",
+			"UPDATE produto SET nome = :nome, descricao = :descricao, localizacao = :localizacao, fotos = :fotos WHERE id = :id",
 			[
 				'nome' => $produto->getNome(),
 				'descricao' => $produto->getDescricao(),

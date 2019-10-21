@@ -45,12 +45,11 @@ class StatementBuilder
 		try {
 			$statement = Conexao::conexao()->prepare($sql);
 
-			$statement = self::bindParams($statement, $colvals);
-
-			$statement->execute();
+			$statement = self::bindParams($statement, $colvals);			
 		} catch (PDOException $e) {
 			self::mensagemErro($e, $sql, $colvals);
 		}
+		return $statement->execute();
 	}
 
 

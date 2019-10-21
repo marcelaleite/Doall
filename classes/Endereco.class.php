@@ -1,19 +1,8 @@
 <?php 
     require_once 'autoload.php';
 
-    class endereco {
+    class Endereco {
        private $codigo, $cep, $rua, $numero, $bairro, $complemento, $cidade, $referencia;
-       
-       function __construct($endereco) {
-           $this->codigo = $endereco[0];
-           $this->cep = $endereco[1];
-           $this->rua = $endereco[2];
-           $this->numero = $endereco[3];
-           $this->bairro = $endereco[4];
-           $this->complemento = $endereco[5];
-           $this->cidade = $endereco[6];
-           $this->referencia = $endereco[7];
-       }
 
        
        function getCodigo() {
@@ -81,11 +70,5 @@
        }
 
               
-       function inserir($cep, $rua, $numero, $bairro, $complemento, $cidade, $referencia,$codigo){
-           $vetor = array(null,$cep, $rua, $numero, $bairro, $complemento, $cidade, $referencia, $codigo);
-           $banco = new banco;
-           $banco->setTabela("enderecos");
-           return $banco->inserir($vetor);
-       }
     }
 ?>

@@ -33,9 +33,19 @@ create table produto (
 id int primary key auto_increment,
 nome varchar(50) not null,
 descricao varchar(500) not null, 
-localizacao varchar(300) not null,
+localizacao int not null,
 fotos varchar(1000) not null,
 idUsuario int not null,
-foreign key (idUsuario) references usuario(id)
+foreign key (idUsuario) references usuario(id),
+foreign key (localizacao) references endereco(id)
 );
 
+create table requisicao(
+    idUsuario int,
+    idProduto int,
+    dataIni date not null,
+    dataFim date, 
+    verificacao tinyint,
+    foreign key (idUsuario) references usuario(id),
+    foreign key (idProduto) references produto(id)
+);
