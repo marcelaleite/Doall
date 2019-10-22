@@ -7,10 +7,10 @@ class Conexao {
 
 
 	private function __construct ()	{
-		$db_host = "localhost";
-		$db_nome = "almocai";
-		$db_usuario = "root";
-		$db_senha = "";
+		$db_host = "doall.tech";
+		$db_nome = "u709658536_doall";
+		$db_usuario = "u709658536_rian";
+		$db_senha = "senha12";
 		$db_driver = "mysql";
 
 		try	{

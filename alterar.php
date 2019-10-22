@@ -4,8 +4,9 @@ include 'autoload.php';
 require_once "funcoes.php";
 require_once 'valida.php';
 $codigo = isset($_SESSION['codigo']) ? $_SESSION['codigo'] : 0;
-$user = new usuario($codigo);
-$row = $user->getAll();
+$row = UsuarioDao::Select('id', $codigo);
+$usuario = $row[0];
+
 
 ?>
 <html>
@@ -51,36 +52,36 @@ $row = $user->getAll();
         <div class="row col s12">
 
             <div class="input-field col s3 offset-s2">
-                <input id="nome" name="nome" type="text" value="<?php echo $row['nome']; ?>">
+                <input id="nome" name="nome" type="text" value="<?php echo $usuario->getNome(); ?>">
                 <label for="nome">Nome</label>
             </div>
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
-                <input id="sobrenome" name="sobrenome" type="text" value="<?php echo $row['sobrenome']; ?>">
+                <input id="sobrenome" name="sobrenome" type="text" value="<?php echo $usuario->getSobrenome(); ?>">
                 <label for="sobrenome">sobrenome</label>
             </div>
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
-                <input id="cof" name="cpf" type="text" value="<?php echo $row['CPF']; ?>" data-mask="000.000.000-00">
+                <input id="cof" name="cpf" type="text" value="<?php echo $usuario->getCpf(); ?>" data-mask="000.000.000-00">
                 <label for="cpf">CPF</label>
             </div>
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
                 <input id="dtnascimento" name="dtnascimento" type="text"
-                    value="<?php echo date("d/m/Y", strtotime($row['dataNasc'])) ?>" data-mask="00/00/0000">
+                    value="<?php echo date("d/m/Y", strtotime($usuario->getDataNasc())) ?>" data-mask="00/00/0000">
                 <label for="dtnascimento">Data de Nasicmento</label>
             </div>
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
                 <select name="sexo">
-                    <option <?php if ($row['sexo'] == "F") {
+                    <option <?php if ($usuario->getSexo() == "F") {
                                 echo "selected";
                             } ?> value="F">F</option>
-                    <option <?php if ($row['sexo'] == "M") {
+                    <option <?php if ($usuario->getSexo() == "M") {
                                 echo "selected";
                             } ?> value="M">M</option>
                 </select>
@@ -89,20 +90,20 @@ $row = $user->getAll();
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
-                <input id="email" name="email" type="text" value="<?php echo $row['email'] ?>">
+                <input id="email" name="email" type="text" value="<?php echo $usuario->getEmail() ?>">
                 <label for="email">Email</label>
             </div>
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
-                <input id="telefone" name="telefone" type="text" value="<?php echo $row['telefone'] ?>">
+                <input id="telefone" name="telefone" type="text" value="<?php echo $usuario->getTelefone() ?>">
                 <label for="telefone">Telefone</label>
             </div>
         </div>
         <div class="row col s12">
             <div class="input-field col s3 offset-s2">
                 <input id="numprot" name="numprot" type="text"
-                    value="<?php echo $row['nProtocolo'] != "" ? $row['nProtocolo'] : ''; ?>">
+                    <?php echo $usuario->getNProtocolo() != "" ? "value='{$usuario->getNProtocolo()}" : "readonly"; ?>>
                 <label for="numprot">Número de protocolo</label>
             </div>
         </div>

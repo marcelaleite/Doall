@@ -32,20 +32,16 @@ require_once 'valida.php';
                     
                     <?php 
                         require_once "autoload.php";
-                            
-                            $sql = "select * from produto where idUsuario != {$_SESSION['codigo']} limit 12";
-                        
-                        $produto = new produto(1);
-                        $listagem = $produto->listar($sql);
-                        for($i = 0; $i<count($listagem); $i++){
+                        $produtos = ProdutoDao::Select('todos', ''); 
+                        foreach($produtos as $produto){
                             echo "<div class='col l3 m3 s12'>
                             <div class='card'>
-                            <a href='produto.php?caodie=".($listagem[$i]['id']+200)."'>
+                            <a href='produto.php?id=".($produto->getCodigo()+200)."'>
                                 <div class='card-image'>
-                                    <img width='220' height='220' src='{$listagem[$i]['fotos']}'>
+                                    <img width='220' height='220' src='{$produto->getFoto()}'>
                                 </div>
                                 <div class='card-content'>
-                                    <p class='black-text'><b>{$listagem[$i]['nome']}</b></p>
+                                    <p class='black-text'><b>{$produto->getNome()}</b></p>
                                 </div>
                                 </a>
                             </div>

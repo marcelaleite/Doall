@@ -3,8 +3,8 @@
 include 'autoload.php';
 require_once 'valida.php';
 $codigo = isset($_SESSION['codigo']) ? $_SESSION['codigo'] : 0;
-$user = new usuario($codigo);
-$row = $user->getAll();
+$row = UsuarioDao::Select('id', $codigo);
+$usuario = $row[0];
 ?>
 <html lang="pt-br">
     <head>
@@ -34,17 +34,17 @@ $row = $user->getAll();
                     <h2 class="center-align roxo-text">Seus Dados</h2> 
                     <div class="col s8 offset-s2">
                         <div class="col l2 m2 s10 offset-s1">
-                            <img class="circle" style="margin-top: 10px; " src="<?php echo $row['foto']!= ""?$row['foto']:"img/user_default.png";  ?>" width="150">
+                            <img class="circle" style="margin-top: 10px; " src="<?php echo $usuario->getFoto()!= ""?$usuario->getFoto():"img/user_default.png";  ?>" width="150">
                         </div>
                         <div class="col l4 m4 s10 offset-l1 offset-m3 offset-s1">
-                        <p><b>Nome:</b> <?php echo $row['nome']; ?></p>
-                        <p><b>Sobrenome:</b> <?php echo $row['sobrenome'] ?></p>
-                        <p><b>CPF:</b> <?php echo $row['CPF'] ?></p>
-                        <p><b>Data de Nascimento:</b> <?php echo date("d/m/Y", strtotime($row['dataNasc'])) ?></p>
-                        <p><b>Sexo:</b> <?php echo ($row['sexo'] == "M" ? "Masculino" : "Feminino"); ?></p>
-                        <p><b>Email:</b> <?php echo $row['email'] ?></p>
-                        <p><b>Telefone:</b> <?php echo $row['telefone'] ?></p>
-                        <p><b>Protocolo:</b> <?php echo $row['nProtocolo'] != "" ? $row['nProtocolo'] : "Não Possui"; ?></p>
+                        <p><b>Nome:</b> <?php echo $usuario->getNome(); ?></p>
+                        <p><b>Sobrenome:</b> <?php echo $usuario->getSobrenome() ?></p>
+                        <p><b>CPF:</b> <?php echo $usuario->getCpf() ?></p>
+                        <p><b>Data de Nascimento:</b> <?php echo date("d/m/Y", strtotime($usuario->getDataNasc())) ?></p>
+                        <p><b>Sexo:</b> <?php echo ($usuario->getSexo() == "M" ? "Masculino" : "Feminino"); ?></p>
+                        <p><b>Email:</b> <?php echo $usuario->getEmail() ?></p>
+                        <p><b>Telefone:</b> <?php echo $usuario->getTelefone()?></p>
+                        <p><b>Protocolo:</b> <?php echo $usuario->getNProtocolo() != "" ? $usuario->getNProtocolo() : "Não Possui"; ?></p>
                         </div>
                     </div>
                 </div>

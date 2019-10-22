@@ -16,7 +16,7 @@ nProtocolo int unique,
 foto varchar(1000)
 );
 
-create table endereco (
+create table enderecos (
 id int primary key auto_increment,
 CEP varchar(9),
 rua varchar(200),
@@ -25,8 +25,8 @@ bairro varchar(100),
 complemento varchar(50),
 cidade varchar(100),
 referencia varchar(1000),
-id_usuario int,
-foreign key (id_usuario) references usuario(id)
+idUsuario int,
+foreign key (idUsuario) references usuario(id) on delete cascade
 );
 
 create table produto (
@@ -36,8 +36,9 @@ descricao varchar(500) not null,
 localizacao int not null,
 fotos varchar(1000) not null,
 idUsuario int not null,
-foreign key (idUsuario) references usuario(id),
-foreign key (localizacao) references endereco(id)
+verificacao tinyint,
+foreign key (idUsuario) references usuario(id) on delete cascade,
+foreign key (localizacao) references endereco(id) on delete set null
 );
 
 create table requisicao(
@@ -46,6 +47,6 @@ create table requisicao(
     dataIni date not null,
     dataFim date, 
     verificacao tinyint,
-    foreign key (idUsuario) references usuario(id),
-    foreign key (idProduto) references produto(id)
+    foreign key (idUsuario) references usuario(id) on delete cascade,
+    foreign key (idProduto) references produto(id) on delete cascade
 );

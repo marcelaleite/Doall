@@ -7,7 +7,7 @@
 	 */
 
 	public static function Insert(Endereco $endereco, $idUsuario) {
-		return StatementBuilder::insert("INSERT INTO endereco (CEP, rua, numero, bairro, complemento, cidade, referencia, id_usuario) VALUES (:CEP, :rua, :numero, :bairro, :complemento, :cidade, :referencia, :id_usuario)",
+		return StatementBuilder::insert("INSERT INTO enderecos (CEP, rua, numero, bairro, complemento, cidade, referencia, idUsuario) VALUES (:CEP, :rua, :numero, :bairro, :complemento, :cidade, :referencia, :idUsuario)",
 			[
 				'CEP' => $endereco->getCep(),
 				'rua' => $endereco->getRua(),
@@ -16,7 +16,7 @@
                 'complemento' => $endereco->getComplemento(),
                 'cidade' => $endereco->getCidade(),
                 'referencia' => $endereco->getReferencia(),
-                'id_usuario' => $idUsuario
+                'idUsuario' => $idUsuario
             ]
         );
     }
@@ -48,18 +48,18 @@
                 case 'cidade':
                 case 'complemento':
                 case 'referencia':
-					$sql = "SELECT * FROM produto WHERE $criterio like '%$pesquisa%'";
+					$sql = "SELECT * FROM enderecos WHERE $criterio like '%$pesquisa%'";
 					break;
 
 				case 'id':
                 case 'CEP':
                 case 'id_usuario':
                 case 'numero':
-					$sql = "SELECT * FROM produto WHERE $criterio = '$pesquisa'";
+					$sql = "SELECT * FROM enderecos WHERE $criterio = '$pesquisa'";
 					break;
 
 				case 'todos':
-					$sql = "SELECT * FROM produto";
+					$sql = "SELECT * FROM enderecos";
 					break;
 			}
 
@@ -82,7 +82,7 @@
 
 	public static function Update(Endereco $endereco) {
 		return StatementBuilder::update(
-			"UPDATE endereco SET CEP = :CEP, rua = :rua, numero = :numero, bairro = :bairro, complemento = :complemento, cidade = :cidade, referencia = :referencia WHERE id = :id",
+			"UPDATE enderecos SET CEP = :CEP, rua = :rua, numero = :numero, bairro = :bairro, complemento = :complemento, cidade = :cidade, referencia = :referencia WHERE id = :id",
 			[
 				'CEP' => $endereco->getCep(),
 				'rua' => $endereco->getRua(),

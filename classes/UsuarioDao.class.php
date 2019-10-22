@@ -38,7 +38,8 @@
         $usuario->setSexo($row['sexo']);
         $usuario->setNProrocolo($row['nProtocolo']);
         $usuario->setSenha($row['senha']);
-        $usuario->setFoto($row['foto']);
+		$usuario->setFoto($row['foto']);
+		$usuario->setTelefone($row['telefone']);
 
 		return $usuario;
 	}
@@ -108,6 +109,17 @@
 				'foto' => $usuario->getFoto(),
 				'id' => $usuario->getCodigo()
 			]
+		);
+	}
+
+	////////////////////////
+	// FUNÇÕES DE DELETAR //
+
+	public static function Deletar(Usuario $usuario)
+	{
+		return StatementBuilder::delete(
+			"DELETE FROM usuario WHERE codigo = :codigo",
+			['codigo' => $usuario->getCodigo()]
 		);
 	}
 

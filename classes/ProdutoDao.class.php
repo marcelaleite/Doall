@@ -7,13 +7,14 @@
 	 */
 
 	public static function Insert(Produto $produto, $idUsuario, $idEndereco) {
-		return StatementBuilder::insert("INSERT INTO produto (nome, descricao, localizacao, fotos, idUsuario) VALUES (:nome, :descricao, :localizacao, :fotos, :idUsuario)",
+		return StatementBuilder::insert("INSERT INTO produto (nome, descricao, localizacao, fotos, idUsuario, verificacao) VALUES (:nome, :descricao, :localizacao, :fotos, :idUsuario, :verificacao)",
 			[
 				'nome' => $produto->getNome(),
 				'descricao' => $produto->getDescricao(),
 				'localizacao' => $idEndereco, 
 				'fotos' => $produto->getFoto(),
-				'idUsuario' => $idUsuario
+				'idUsuario' => $idUsuario,
+				'veficacao' => $produto->getVerificacao()
             ]
         );
     }
@@ -28,7 +29,8 @@
 		$produto->setCodigo($row['id']);
 		$produto->setNome($row['nome']);
 		$produto->setDescricao($row['descricao']);
-        $produto->setFoto($row['fotos']);
+		$produto->setFoto($row['fotos']);
+		$produto->setVerificao($row['verificacao']);
 		return $produto;
 	}
 

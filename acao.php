@@ -22,10 +22,8 @@ $referencia = isset($_POST['referencia']) ? $_POST['referencia'] : 0;
 $log = isset($_POST['log']) ? $_POST['log'] : 0;
 $senha = isset($_POST['senha']) ? $_POST['senha'] : sha1("0000");
 $senha = sha1($senha);
-
-$endereco = new endereco(0);
 if ($acao == "crie") {
-    $usuario = new usuario();
+    $usuario = new Usuario();
     $usuario->setNome($nome);
     $usuario->setSobrenome($sobrenome);
     $usuario->setCpf($cpf);
@@ -45,11 +43,20 @@ if ($acao == "crie") {
         if ($valida !== true) {
             echo "Cadastro de usuario falhou tente novamente mais tarde!!";
         }
-        $usuario = UsuarioDao::Popula(UsuarioDao::Select('CPF', $usuario->getCpf()));
-        $endereco = 
-        $valida = $endereco->inserir($cep, $rua, $numero, $bairro, $complemento, $cidade, $referencia, $codigo[0][0]);
+        $row = UsuarioDao::Select('CPF', $usuario->getCpf());
+        $usuario = $row[0];
+        $endereco = new Endereco;
+        $endereco->setCep($cep);
+        $endereco->setRua($rua);
+        $endereco->setNumero($numero);
+        $endereco->setBairro($bairro);
+        $endereco->setComplemento($complemento);
+        $endereco->setCidade($cidade);
+        $endereco->setReferencia($referencia);
+        $valida = EnderecoDao::Insert($endereco, $usuario->getCodigo());
         if ($valida !== true) {
-            echo "Cadastro de endereço falhou tente novamente mais tarde: $valida";
+            echo "Cadastro de endereço falhou tente novamente mais tarde";
+            UsuarioDao::Deletar($usuario);
         } else {
             echo "Cadastro concluido!";
         }

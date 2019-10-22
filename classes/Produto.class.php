@@ -4,7 +4,8 @@ class Produto extends AbsCodigo {
     private $nome,
     $descricao,
     $localizacao,
-    $foto;
+    $foto,
+    $verificacao;
    
 
     function getNome() {
@@ -19,6 +20,9 @@ class Produto extends AbsCodigo {
         return $this->localizacao;
     }
 
+    function getVerificacao() {
+        return $this->verificacao;
+    }
 
     function setNome($nome) {
         $this->nome=$nome;
@@ -30,6 +34,10 @@ class Produto extends AbsCodigo {
 
     function setLocalizacao($localizacao) {
         $this->localizacao=$localizacao;
+    }
+
+    function setVerificao($verificacao) {
+        $this->verificacao=$verificacao;
     }
 
     function getFoto() {

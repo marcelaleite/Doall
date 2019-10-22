@@ -61,7 +61,7 @@ class Usuario extends AbsCodigo {
 
     function getNProtocolo()
     {
-        return $this->numprot;
+        return $this->nProtocolo;
     }
 
     function getSenha()
