@@ -34,6 +34,7 @@ $usuario = $row[0];
                     <h2 class="center-align roxo-text">Seus Dados</h2> 
                     <div class="col s8 offset-s2">
                         <div class="col l2 m2 s10 offset-s1">
+                            
                             <img class="circle" style="margin-top: 10px; " src="<?php echo $usuario->getFoto()!= ""?$usuario->getFoto():"img/user_default.png";  ?>" width="150">
                         </div>
                         <div class="col l4 m4 s10 offset-l1 offset-m3 offset-s1">

@@ -17,8 +17,8 @@
         ?>
         <main>
             <input  type='hidden' id='error' value="<?php echo isset($_GET['error'])?$_GET['error']:''; ?>">
-            <div class="row col s12">
-            <div class="col s5 offset-s1"> 
+            <div class="row col s12 l12 m12">
+            <div class="col l5 offset-l1 s10 offset-s1"> 
                 <br><br>
                     <center> <h4 style="font-family:arial"> Seja muito bem-vindo(a)!</h4></center>
                     <br><br>
@@ -27,7 +27,7 @@
                     Lembrando que alimentos perecíveis e dinheiro não serão aceitos!
                     Caso seja cadastrado no CRAS fique tranquilo que você terá preferência ao pedir os produtos: roupas e alimentos. </h6>
                 </div>
-                <div class="col s6" >
+                <div class="col l6 s12">
                     <div class="carousel">
                         <a class="carousel-item" href="#one!"><img src="img/roupas.jpg" height="260" ></a>
                         <a class="carousel-item" href="#two!"><img src="img/eletronicos.jpg" height="260"></a>

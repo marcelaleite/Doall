@@ -11,7 +11,7 @@
     <!-- Cabeçalho -->
     <?php echo header1();
     require_once 'login.php'; ?>
-    <main>
+    <main class="col s12">
         <!-- Quadro de cadastro -->
 
         <div class="parallax-container">
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="row col s12">
-                <form class="col s12 grey lighten-3 " method="post" action="acao.php" id="formu">
+                <form class="grey lighten-3 " method="post" action="acao.php" id="formu">
                     <div class="row">
                         <div class="input-field col l3 m3 s10 offset-l2 offset-m2 offset-s1">
                             <i class="material-icons prefix">account_circle</i>

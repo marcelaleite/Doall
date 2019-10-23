@@ -71,12 +71,12 @@ function header2()
      <ul class="sidenav" id="mobile-demo">
          <div class=" row col s12 roxo white-text" style = "">
              <div class="col s2 offset-s2">
-       <li> <img class="circle " style="m a rgin-top: 1em;" src="';
+       <li> <img class="circle " style="margin-top: 1em;" src="';
        $final.= $_SESSION['foto'] != "" ? $_SESSION['foto'] : "img/user_default.png";
        $final.= '" width="45"></li>
        </div>
                     <div class="col s6">
-                <li style="font-size:1.7rem;margin-top: 0.6em;font-family: font-family: GillSans, Calibri, Trebuchet, sans-serif;">&Negat iveMediumSpace; Olá ,   ' . $_SESSION['nome'] . '</li> 
+                <li style="font-size:1.7rem;margin-top: 0.6em;font-family: font-family: GillSans, Calibri, Trebuchet, sans-serif;">&NegativeMediumSpace; Olá,   ' . $_SESSION['nome'] . '</li> 
                     </div></div>
                     <div class="col s12 row">
                         <ul>

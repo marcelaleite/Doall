@@ -25,23 +25,15 @@ $codigo = isset($_SESSION['codigo']) ? $_SESSION['codigo'] : 0;
                     
                     <?php 
                         require_once "autoload.php";
-                        
-                
-                          $sql = "select * from produto where idUsuario = {$codigo}";
-    
-                        
-                        $produto = new produto(0);
-                       
-                        $listagem = $produto->listar($sql);
-                        for($i = 0; $i<count($listagem); $i++){
+                        $produtos = ProdutoDao::Select("idUsuario",$codigo);
+                        foreach($produtos as $produto){
                             echo "<div class='col l3 m3 s12'>
-
                             <div class='card'>
                                 <div class='card-image'>
-                                    <img width='220' height='220' src='{$listagem[$i]['fotos']}'>
+                                    <img width='220' height='220' src='{$produto->getFoto()}'>
                                 </div>
                                 <div class='card-content'>
-                                    <p><b>{$listagem[$i]['nome']}</b></p>
+                                    <p><b>{$produto->getNome()}</b></p>
                                 </div>
                             </div>
                         </div>";

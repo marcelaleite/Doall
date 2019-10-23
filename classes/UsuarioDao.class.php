@@ -79,6 +79,21 @@
 			echo $e->getMessage();
 		}
 	}
+
+	public static function VerificaFoto($usuario, $nome_arquivo){
+		$sql = "Select * from usuario where foto = '";
+    	$sql .= $nome_arquivo != "" ? $nome_arquivo : 0;
+		$sql .= "' and id = " . $usuario->getCodigo();
+		
+		$query = Conexao::conexao()->query($sql);
+
+		$usuarios = array();
+		while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+			array_push($usuarios, self::Popula($row));
+		}
+
+		return count($usuarios);
+	}
 	/**
 	 * Verifica se o usuario está cadastrado
 	 * @return todos retorna a soma das contas encontradas email e cpf
@@ -96,7 +111,7 @@
 	public static function Update(Usuario $usuario)
 	{
 		return StatementBuilder::update(
-			"UPDATE Usuario SET nome = :nome, sobrenome = :sobrenome, CPF = :CPF, senha = :senha, dataNasc = :dataNasc, email = :email, telefone = :telefone, sexo = :sexo, foto = :foto WHERE id = :id",
+			"UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, CPF = :CPF, senha = :senha, dataNasc = :dataNasc, email = :email, telefone = :telefone, sexo = :sexo, foto = :foto WHERE id = :id",
 			[
 				'nome' => $usuario->getNome(),
 				'sobrenome' => $usuario->getSobrenome(),
