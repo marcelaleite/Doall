@@ -2,28 +2,9 @@
 require_once 'autoload.php';
 
 class Usuario extends AbsCodigo {
-    private $nome, $sobrenome, $cpf, $dataNasc, $email, $telefone, $sexo, $nProtocolo, $senha, $foto, $endereco = array();
+    private $nome, $sobrenome, $cpf, $dataNasc, $email, $telefone, $sexo, $nProtocolo, $senha, $foto, $endereco = array(), $meusProdutos = array(), $produtosRequisitados = array();
 
-    // function usuario($id)
-    // {
-    //     $banco = new banco;
-    //     $user = $banco->select("select * from usuario where id = $id");
-    //     $this->setNome($user[0]['nome']);
-    //     $this->setSobrenome($user[0]['sobrenome']);
-    //     $this->setCpf($user[0]['CPF']);
-    //     $this->setSenha($user[0]['senha']);
-    //     $this->setDtnascimento($user[0]['dataNasc']);
-    //     $this->setEmail($user[0]['email']);
-    //     $this->setTelefone($user[0]['telefone']);
-    //     $this->setSexo($user[0]['sexo']);
-    //     $this->setNumprot($user[0]['nProtocolo']);
-    //     $this->setFoto($user[0]['foto']);
-    //     $ids = $banco->select("select * from enderecos where id_usuario = $id");
-    //     for ($i = 0; $i < count($ids); $i++) {
-    //         $endereco = new endereco($ids[$i]);
-    //         $this->endereco[] = $endereco;
-    //     }
-    // }
+
     function getNome()
     {
         return $this->nome;
@@ -72,6 +53,21 @@ class Usuario extends AbsCodigo {
     function getFoto()
     {
         return $this->foto;
+    }
+
+    function getEndereco()
+    {
+        return $this->endereco;
+    }
+
+    function getMeusProdutos()
+    {
+        return $this->meusProdutos;
+    }
+
+    function getProdutosRequisitados()
+    {
+        return $this->produtosRequisitados;
     }
 
     function setNome($nome)
@@ -124,47 +120,36 @@ class Usuario extends AbsCodigo {
         $this->foto = $foto;
     }
 
-
-    public function inserir($nome, $sobrenome, $cpf, $senha, $dtnascimento, $email, $telefone, $sexo, $prot, $foto)
+    public function setEndereco($e)
     {
-        $this->verificarProt($prot);
-        $vetor = array(null, $nome, $sobrenome, $cpf, $senha, $dtnascimento, $email, $telefone, $sexo, $prot, $foto);
-
-        $banco = new banco;
-        $banco->setTabela("usuario");
-        return $banco->inserir($vetor);
+        if ($e instanceof Endereco) {
+            array_push($this->endereco, $e);
+        }
     }
 
-    public function alterar($codigo, $nome, $sobrenome, $cpf, $senha, $dtnascimento, $email, $telefone, $sexo, $prot, $foto)
+    public function setMeusProduto($mp)
     {
-        $prot = $this->verificarProt($prot);
-        echo "<br>protocolo:".$prot."<br>";
-        $vetor = array($codigo, $nome, $sobrenome, $cpf, $senha, $dtnascimento, $email, $telefone, $sexo, $prot, $foto);
-        $banco = new banco;
-        $banco->setTabela("usuario");
-        return $banco->update($vetor);
-    }
-    public function verificarProt($prot)
-    {
-        if ($prot == null)
-            return null;
-        else
-            return $prot;
+        if ($mp instanceof Produto) {
+            array_push($this->meusProdutos, $mp);
+        }
     }
 
-    function getAll()
+    public function setProdutosRequisitados($pr)
     {
-        return [
-            'nome' => $this->nome,
-            'sobrenome' => $this->sobrenome,
-            'CPF' => $this->cpf,
-            'dataNasc' => $this->dtnascimento,
-            'email' => $this->email,
-            'telefone' =>  $this->telefone,
-            'sexo' =>   $this->sexo,
-            'nProtocolo' =>   $this->numprot,
-            'senha' =>  $this->senha,
-            'foto' => $this->foto,
-        ];
+        if ($pr instanceof Produto) {
+            array_push($this->produtosRequisitados, $pr);
+        }
+    }
+
+    public function geraSelectEndereco($selected){
+        $options = '';
+        foreach($this->endereco as $endereco){
+            $options .= "<option value='{$endereco->getCodigo()}' ";
+            if($endereco->getCodigo() == $selected){
+                $options .= "selected";
+            }
+            $options .= ">{$endereco->getCidade()} - {$endereco->getRua()}</option>";
+        }
+        return $options;
     }
 }

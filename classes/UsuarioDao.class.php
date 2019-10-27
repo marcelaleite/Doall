@@ -80,6 +80,54 @@
 		}
 	}
 
+	public static function SelectEndereco(Usuario $usuario)
+	{
+		$endereco_codigo = StatementBuilder::select(
+			"SELECT id FROM enderecos WHERE idUsuario = :idUsuario",
+			['idUsuario' => $usuario->getCodigo()]
+		);
+
+		foreach ($endereco_codigo as $codigo) {
+			$enderecos = EnderecoDao::Select('id', $codigo['id']);
+			$endereco = $enderecos[0];
+			$usuario->setEndereco($endereco);
+		}
+
+		return $usuario;
+	}
+
+	public static function SelectMeusProdutos(Usuario $usuario)
+	{
+		$produto_codigo = StatementBuilder::select(
+			"SELECT id FROM produto WHERE idUsuario = :idUsuario",
+			['idUsuario' => $usuario->getCodigo()]
+		);
+
+		foreach ($produto_codigo as $codigo) {
+			$produtos = ProdutoDao::Select('id', $codigo['id']);
+			$produto = $produtos[0];
+			$usuario->setMeusProduto($produto);
+		}
+
+		return $usuario;
+	}
+
+	public static function SelectProdutosRequisitados(Usuario $usuario)
+	{
+		$produto_codigo = StatementBuilder::select(
+			"SELECT idProduto FROM produto WHERE idUsuario = :idUsuario",
+			['idUsuario' => $usuario->getCodigo()]
+		);
+
+		foreach ($produto_codigo as $codigo) {
+			$produtos = ProdutoDao::Select('id', $codigo['id']);
+			$produto = $produtos[0];
+			$usuario->setProdutosRequisitados($produto);
+		}
+
+		return $usuario;
+	}
+
 	public static function VerificaFoto($usuario, $nome_arquivo){
 		$sql = "Select * from usuario where foto = '";
     	$sql .= $nome_arquivo != "" ? $nome_arquivo : 0;

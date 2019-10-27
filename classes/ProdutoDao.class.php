@@ -14,7 +14,7 @@
 				'localizacao' => $idEndereco, 
 				'fotos' => $produto->getFoto(),
 				'idUsuario' => $idUsuario,
-				'veficacao' => $produto->getVerificacao()
+				'verificacao' => $produto->getVerificacao()
             ]
         );
     }
