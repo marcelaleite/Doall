@@ -47,6 +47,7 @@ create table requisicao(
     dataIni date not null,
     dataFim date, 
     verificacao tinyint,
+    primary key(idUsuario, idProduto),
     foreign key (idUsuario) references usuario(id) on delete cascade,
     foreign key (idProduto) references produto(id) on delete cascade
 );

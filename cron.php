@@ -1,13 +1,30 @@
 <?php
     require_once "autoload.php";
-    $sql = "SELECT * from requisicao order by dataIni";
-    $banco = new banco;
-    $vetor = $banco->select($sql);
-    foreach($vetor as $linha){
-        var_dump($linha);
-        if($linha['verificado'] == 0){
-            $banco->setTabela('requisicao');
-            $banco->update([])
+    $requisicoes = RequisicaoDao::Select('todos', '');
+    $dataHoje = strtotime(date("Y-m-d"));
+    foreach($requisicoes as $requisicao){
+
+        if($requisicao[0]->getVerificacao() == 0){
+            $usuarios = UsuarioDao::Select('id', $requisicao[1]);
+            $usuario = $usuarios[0];
+            if(strtotime($requisicao[0]->getdataFim()) >= $dataHoje){
+                $requisicao[0]->setVerificacao(1);
+                if(RequisicaoDao::Update($requisicao[0], $requisicao[1], $requisicao[2])){
+                    $produtos = ProdutoDao::Select('id', $requisicao[2]);
+                    $produto = $produtos[0];
+                    $from = "naoresponda@doall.tech";
+
+                    $to = $usuario->getEmail();
+
+                    $subject = "Produto Solicitado";
+
+                    $message = "O produto solicitado {$produto->getNome()} está disponivel para retirada";
+
+                    $headers = "De:". $from;
+
+                    mail($to, $subject, $message, $headers);
+                }
+            }
         }
     }
     

@@ -1,22 +1,52 @@
 <?php require_once 'valida.php';
 require_once 'autoload.php';
-$acao = isset($_POST['acao'])?$_POST['acao']:'';
+$acao = isset($_POST['acao'])?$_POST['acao']:$_GET['acao'];
 
-if (isset($_FILES)) {
-    echo 'FILES setado';
-}
+
 if($acao == "requisitar"){
-    
-    $banco = new bancoNN;
-    $banco->setTabela("requisicao");
+    $requisicao = new Requisicao;
     $dataIni = date('Y-m-d h:i:s');
     $dataFim= date('Y-m-d h:i:s', strtotime($dataIni.' + 3 days'));
+    $requisicao->setDataIni($dataIni);
+    $requisicao->setDataFim($dataFim);
+    $requisicao->setVerificacao(0);
     $id = isset($_POST['id'])?$_POST['id']:'';
-    $vetor = [$_SESSION['codigo'], $id, $dataIni, $dataFim];
-    echo '<pre>';
-    print_r($vetor);
-    $banco->inserirN($vetor);
+    RequisicaoDao::Insert($requisicao ,$_SESSION['codigo'], $id);
+
     header("location:index.php");
+}
+
+elseif($acao == "delete"){
+    $codigo = isset($_GET['codigo'])?$_GET['codigo']:0;
+    $produtos = ProdutoDao::Select('id', $codigo);
+    $produto = $produtos[0];
+    $antiga_foto = $produto->getFoto();
+    if(ProdutoDao::Deletar($produto)){
+        unlink($antiga_foto);
+        header("location:meusprodutos.php");
+    }
+}
+
+elseif($acao == "alterar"){
+    $codigo = isset($_POST['codigo'])?$_POST['codigo']:0;
+    $nome = isset($_POST['nomeprod'])?$_POST['nomeprod']:'';
+    $descricao = isset($_POST['descricao'])?$_POST['descricao']:'';
+    $localizacao_id = isset($_POST['localizaprod'])?$_POST['localizaprod']:'';
+    $verificao = 0;
+    $produtos = ProdutoDao::Select('id', $codigo);
+    $produto = $produtos[0];
+    $produto->setNome($nome);
+    $produto->setDescricao($descricao);
+    if($_FILES['arquivo']['name'] != ''){
+        $upload = new Upload;
+        $foto_produto = $upload->uploadImagem('arquivo', 'img/Produtos/');
+        $antiga_foto = $produto->getFoto();
+        $produto->setFoto($foto_produto);
+    }
+    if($produto = ProdutoDao::Update($produto, $localizacao_id)){
+        unlink($antiga_foto);
+        header("location:meusprodutos.php");
+    }
 }
 
 else {
@@ -30,7 +60,7 @@ else {
         $produto->setNome($nome);
         $produto->setDescricao($descricao);
         $produto->setFoto($foto_produto);
-        $produto->setVerificao(0);
+        $produto->setVerificacao(0);
         if(ProdutoDao::Insert($produto,$_SESSION['codigo'], $loca)){
             header("location:meusprodutos.php");
         }

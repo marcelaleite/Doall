@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <?php
-include 'autoload.php';
 require_once 'valida.php';
-$codigo = isset($_GET['caodie'])?($_GET['caodie']-200):0;
-if(!isset($_GET['caodie'])){
+include 'autoload.php';
+
+$codigo = isset($_GET['id'])?($_GET['id']-200):0;
+if(!isset($_GET['id'])){
     header('location:index.php');
 }
 ?>
@@ -28,7 +29,8 @@ if(!isset($_GET['caodie'])){
         </header>
         <main>
             <?php
-                $produto = new produto($codigo);
+                $produtos = ProdutoDao::Select('id', $codigo);
+                $produto = $produtos[0];
                 echo $produto;
             ?>
         </main>

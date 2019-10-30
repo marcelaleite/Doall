@@ -136,7 +136,7 @@ class Usuario extends AbsCodigo {
 
     public function setProdutosRequisitados($pr)
     {
-        if ($pr instanceof Produto) {
+        if ($pr instanceof Requisicao) {
             array_push($this->produtosRequisitados, $pr);
         }
     }

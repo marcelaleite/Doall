@@ -5,6 +5,8 @@
     <title>Doall | Cadastro</title>
     <?php require_once "funcoes.php";
     include 'head.php'; ?>
+    <style>
+    </style>
 </head>
 
 <body class="grey lighten-3">
@@ -23,20 +25,20 @@
                 <h4 class="roxo-text ">Identificação</h4>
             </div>
             <br>
-            <div class="row col s10">
-                <div class="center">
+            <div class="row col s12">
+                        <div class="center">
                     <input type='button' name="tr" id="tr" class="btn tooltipped" data-position="top" value="Sem protocolo" data-tooltip="O número é dado pelo CRAS se você for de baixa renda">
                 </div>
             </div>
             <div class="row col s12">
                 <form class="grey lighten-3 " method="post" action="acao.php" id="formu">
-                    <div class="row">
-                        <div class="input-field col l3 m3 s10 offset-l2 offset-m2 offset-s1">
+                    <div class="row col s12">
+                        <div class="input-field col l3 m3 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">account_circle</i>
                             <input required id="nome" name="nome" type="text">
                             <label for="nome">Nome</label>
                         </div>
-                        <div class="input-field col l3 m3 s10 offset-s1">
+                        <div class="input-field col l4 m3 s10 offset-s1">
                             <input required id="sobrenome" name="sobrenome" type="text">
                             <label for="sobrenome">Sobrenome</label>
                         </div>
@@ -48,13 +50,13 @@
                     </div>
                     <br class="hide-on-med-and-down ">
 
-                    <div class="row">
-                        <div class="input-field col l2 m2 s10 offset-l2 offset-m2 offset-s1">
+                    <div class="row col s12">
+                        <div class="input-field col l2 m2 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">event</i>
                             <input required id="dtnascimento" name="dtnascimento" type="text" data-mask="00/00/0000">
                             <label for="dtnascimento" class="active">Data de Nascimento</label>
                         </div>
-                        <div class="input-field col l1 m1 s10 offset-s1">
+                        <div class="input-field col l2 m2 s10 offset-s1">
                             <select name="sexo" required>
                                 <option value="" disabled selected>Sexo</option>
                                 <option value="M">Masculino</option>
@@ -77,8 +79,8 @@
 
                     <br class="hide-on-med-and-down ">
 
-                    <div class="row">
-                        <div class="input-field col l3 m3 s10 offset-l2 offset-m2 offset-s1 ">
+                    <div class="row col s12">
+                        <div class="input-field col l3 m3 s10 offset-l1 offset-m1 offset-s1 ">
                             <i class="material-icons prefix">https</i>
                             <input required id="senha" name="senha" type="password" class="validate">
                             <label for="senha">Senha</label>
@@ -88,7 +90,7 @@
                             <label id="lblconfsenha" for="confsenha">Confirmar senha</label>
                             <span class="helper-text" data-error="Senhas não coincidem"></span>
                         </div>
-                        <div class="input-field col l3 m3 s10 offset-s1 " id="prot">
+                        <div class="input-field col l4 m4 s10 offset-s1 " id="prot">
                             <i class="material-icons prefix">assignment</i>
                             <input id="numprot" name="numprot" type="text">
                             <label for="numprot">Nº de protocolo</label>
@@ -104,8 +106,8 @@
                             <h4 class="roxo-text ">Endereço</h4>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col l2 m2 s10 offset-l2 offset-m2 offset-s1">
+                    <div class="row col s12">
+                        <div class="input-field col l2 m2 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">place</i>
                             <input required id="cep" name="cep" type="text" data-mask="00000-000">
                             <label for="cep">CEP</label>
@@ -115,7 +117,7 @@
                             <input required id="rua" name="rua" type="text">
                             <label for="rua">Rua</label>
                         </div>
-                        <div class="input-field col l1 m1 s10 offset-s1">
+                        <div class="input-field col l2 m2 s10 offset-s1">
                             <input required id="numcasa" name="numcasa" type="number">
                             <label for="numcasa">Número</label>
                         </div>
@@ -127,8 +129,8 @@
 
                     <br class="hide-on-med-and-down ">
 
-                    <div class="row">
-                        <div class="input-field col l3 m3 s10 offset-l2 offset-m1 offset-s1">
+                    <div class="row col s12">
+                        <div class="input-field col l4 m4 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">home</i>
                             <input id="complemento" name="complemento" type="text">
                             <label for="complemento">Complemento</label>
@@ -145,7 +147,7 @@
                             <label for="referencia">Referência</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="center">
                             <button class="btn waves-effect waves-light" id="acao" type="button" name="acao" value="crie" onclick="insertData()">Enviar
                             </button>

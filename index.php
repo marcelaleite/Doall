@@ -32,7 +32,7 @@ require_once 'valida.php';
                     
                     <?php 
                         require_once "autoload.php";
-                        $produtos = ProdutoDao::Select('todos', ''); 
+                        $produtos = ProdutoDao::ListagemDosVerificados($_SESSION['codigo']); 
                         foreach($produtos as $produto){
                             echo "<div class='col l3 m3 s12'>
                             <div class='card'>

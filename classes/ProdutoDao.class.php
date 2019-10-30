@@ -30,7 +30,7 @@
 		$produto->setNome($row['nome']);
 		$produto->setDescricao($row['descricao']);
 		$produto->setFoto($row['fotos']);
-		$produto->setVerificao($row['verificacao']);
+		$produto->setVerificacao($row['verificacao']);
 		return $produto;
 	}
 
@@ -56,31 +56,84 @@
 
 			$query = Conexao::conexao()->query($sql);
 
-			$usuarios = array();
+			$produtos = array();
 			while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-				array_push($usuarios, self::Popula($row));
+				array_push($produtos, self::Popula($row));
 			}
 
-			return $usuarios;
+			return $produtos;
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}
     }
-    
+	
+	public static function ListagemDosVerificados($idUsuario){
+		try{
+			$sql = "SELECT * FROM produto WHERE idUsuario != {$idUsuario} and verificacao = 1";
+
+			$query = Conexao::conexao()->query($sql);
+
+			$produtos = array();
+			while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+				array_push($produtos, self::Popula($row));
+			}
+
+			return $produtos;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
+
+	public static function UsuarioProduto(Produto $produto){
+		$sql = "select idUsuario from produto where id = {$produto->getCodigo()}";
+		$query = Conexao::conexao()->query($sql);
+		$produto = $query->fetch(PDO::FETCH_ASSOC);
+		$sql = "select nome, sobrenome from usuario where id = {$produto['idUsuario']}";
+		$query = Conexao::conexao()->query($sql);
+        $usuario = $query->fetch(PDO::FETCH_ASSOC);
+        $nomeUsuario = $usuario['nome']." ".$usuario['sobrenome'];
+        return $nomeUsuario;
+	}
+	
+	public static function SelectEndereco(Produto $produto){
+		$endereco_codigo = StatementBuilder::select(
+			"SELECT localizacao FROM produto WHERE id = :id",
+			['id' => $produto->getCodigo()]
+		);
+
+		foreach ($endereco_codigo as $codigo) {
+			$localicacoes = EnderecoDao::Select('id', $codigo['localizacao']);
+			$localicacao = $localicacoes[0];
+			$produto->setLocalizacao($localicacao);
+		}
+
+		return $produto;
+	}
     /**
 	 * UPDATE
 	 */
 
-	public static function Update(Produto $produto) {
+	public static function Update(Produto $produto, $localizacao_id) {
 		return StatementBuilder::update(
 			"UPDATE produto SET nome = :nome, descricao = :descricao, localizacao = :localizacao, fotos = :fotos WHERE id = :id",
 			[
 				'nome' => $produto->getNome(),
 				'descricao' => $produto->getDescricao(),
-				'localizacao' => $produto->getLocalizacao(),
+				'localizacao' => $localizacao_id,
                 'fotos' => $produto->getFoto(),
                 'id' => $produto->getCodigo()
 			]
+		);
+	}
+
+	////////////////////////
+	// FUNÇÕES DE DELETAR //
+
+	public static function Deletar(Produto $produto)
+	{
+		return StatementBuilder::delete(
+			"DELETE FROM produto WHERE id = :id",
+			['id' => $produto->getCodigo()]
 		);
 	}
 

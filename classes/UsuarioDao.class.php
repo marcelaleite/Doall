@@ -122,7 +122,9 @@
 		foreach ($produto_codigo as $codigo) {
 			$produtos = ProdutoDao::Select('id', $codigo['id']);
 			$produto = $produtos[0];
-			$usuario->setProdutosRequisitados($produto);
+			$requisicoes = RequisicaoDao::Select2('idUsuario', $usuario->getCodigo(), 'idProduto', $produto->getCodigo());
+			$requisicao = $requisicoes[0];
+			$usuario->setProdutosRequisitados($requisicoes);
 		}
 
 		return $usuario;
@@ -181,8 +183,8 @@
 	public static function Deletar(Usuario $usuario)
 	{
 		return StatementBuilder::delete(
-			"DELETE FROM usuario WHERE codigo = :codigo",
-			['codigo' => $usuario->getCodigo()]
+			"DELETE FROM usuario WHERE id = :id",
+			['id' => $usuario->getCodigo()]
 		);
 	}
 

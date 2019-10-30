@@ -36,18 +36,18 @@
                 <h4>Cadastro de Produto</h4>
             </div>
             <form class="grey lighten-3 " method="post" action="acaoproduto.php" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="input-field col l4 m3 s10 offset-l2 offset-m2 offset-s1">
+                <div class="row col s12">
+                    <div class="input-field col l4 m4 s10 offset-l2 offset-m2 offset-s1">
                         <input id="nomeprod" name="nomeprod" type="text" class="validate">
                         <label for="nomeprod">Nome do produto</label>
                     </div>
-                    <div class="input-field col l4 m3 s10 offset-s1">
+                    <div class="input-field col l4 m4 s10 offset-s1">
                         <input id="descricao" name="descricao" type="text" class="validate">
                         <label for="descricao">Descrição</label>
                     </div>
                    
                 </div>
-                <div class="row">
+                <div class="row col s12">
                     <div class="input-field col l4 m4 s10 offset-l2 offset-m2 offset-s1">
                         <div class="file-field">
                             <div class="btn">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    <div class="input-field col l4 m2 s10 offset-s1">
+                    <div class="input-field col l4 m4 s10 offset-s1">
                         <select name="localizaprod">
                             <option disabled>Localização</option>
                             <?php  echo $usuario->geraSelectEndereco(''); ?>
