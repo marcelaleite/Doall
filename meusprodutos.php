@@ -69,7 +69,7 @@ $usuario = UsuarioDao::SelectMeusProdutos(UsuarioDao::SelectEndereco($usuarios[0
                             <form class='grey lighten-3 ' method='post' action='acaoproduto.php' enctype='multipart/form-data'>
                             <input name='codigo' value='{$produto->getCodigo()}' type='hidden'>
                             <div class='row col s12'>
-                                <div class='input-field col l4 m4 s10 offset-l2 offset-m2 offset-s1'>
+                                <div class='input-field col l3 m3 s10 offset-l1 offset-m1 offset-s1'>
                                     <input id='nomeprod' name='nomeprod' type='text' class='validate' value='{$produto->getNome()}'>
                                     <label for='nomeprod'>Nome do produto</label>
                                 </div>
@@ -77,6 +77,23 @@ $usuario = UsuarioDao::SelectMeusProdutos(UsuarioDao::SelectEndereco($usuarios[0
                                     <input id='descricao' name='descricao' type='text' class='validate' value='{$produto->getDescricao()}'>
                                     <label for='descricao'>Descrição</label>
                                 </div>
+                                <div class='input-field col l3 m3 s10 offset-s1'>
+                                <select name='tipo'>
+                                    <option value='Roupa'";
+                                        if($produto->getTipo() == "Roupa")
+                                            echo "selected";
+                                    echo ">Roupa</option>
+                                    <option value='Comida não Perecivel'";
+                                    if($produto->getTipo() == "Comida não Perecivel")
+                                        echo "selected";
+                                echo ">Comida não Perecivel</option>
+                                    <option value='Eletrodoméstico'";
+                                    if($produto->getTipo() == "Eletrodoméstico")
+                                        echo "selected";
+                                echo ">Eletrodoméstico</option>
+                                </select>
+                                <label for='tipo'>Tipo</label>
+                            </div>
                                
                             </div>
                             <div class='row col s12'>

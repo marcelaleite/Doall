@@ -104,7 +104,10 @@ class StatementBuilder
 	 */
 	protected static function bindParams(PDOStatement $stmt, array $paramBinds)
 	{
+		
 		foreach ($paramBinds as $param => &$bind) {
+			// var_dump($bind);
+			// echo "<br>";
 			$stmt->bindParam(":{$param}", $bind);
 		}
 

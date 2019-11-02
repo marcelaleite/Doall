@@ -5,7 +5,8 @@ class Produto extends AbsCodigo {
     $descricao,
     $localizacao,
     $foto,
-    $verificacao;
+    $verificacao,
+    $tipo;
    
 
     function getNome() {
@@ -22,6 +23,10 @@ class Produto extends AbsCodigo {
 
     function getVerificacao() {
         return $this->verificacao;
+    }
+
+    function getTipo() {
+        return $this->tipo;
     }
 
     function setNome($nome) {
@@ -46,6 +51,10 @@ class Produto extends AbsCodigo {
 
     function setFoto($foto) {
         $this->foto=$foto;
+    }
+
+    function setTipo($tipo) {
+        $this->tipo=$tipo;
     }
 
 

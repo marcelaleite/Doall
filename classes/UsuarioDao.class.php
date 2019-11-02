@@ -7,7 +7,7 @@
 	 */
 
 	public static function Insert(Usuario $usuario) {
-		return StatementBuilder::insert("INSERT INTO usuario (nome, sobrenome, CPF, dataNasc, email, telefone, sexo, nProtocolo, senha, foto) VALUES (:nome, :sobrenome, :CPF, :dataNasc, :email, :telefone, :sexo, :nProtocolo, :senha, :foto)",
+		return StatementBuilder::insert("INSERT INTO usuario (nome, sobrenome, CPF, dataNasc, email, telefone, sexo, nProtocolo, senha, foto, tipo, emailVerificacao) VALUES (:nome, :sobrenome, :CPF, :dataNasc, :email, :telefone, :sexo, :nProtocolo, :senha, :foto, :tipo, :emailVerificacao)",
 			[
 				'nome' => $usuario->getNome(),
 				'sobrenome' => $usuario->getSobrenome(),
@@ -18,7 +18,9 @@
 				'sexo' => $usuario->getSexo(),
 				'nProtocolo' => $usuario->getNProtocolo(),
 				'senha' => $usuario->getSenha(),
-				'foto' => $usuario->getFoto()
+				'foto' => $usuario->getFoto(),
+				'tipo' => $usuario->getTipo(),
+				'emailVerificacao' => $usuario->getEmailVerificacao()
 			]);
     }
     
@@ -40,7 +42,8 @@
         $usuario->setSenha($row['senha']);
 		$usuario->setFoto($row['foto']);
 		$usuario->setTelefone($row['telefone']);
-
+		$usuario->setTipo($row['tipo']);
+		$usuario->setEmailVerificacao($row['emailVerificacao']);
 		return $usuario;
 	}
 
@@ -161,7 +164,7 @@
 	public static function Update(Usuario $usuario)
 	{
 		return StatementBuilder::update(
-			"UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, CPF = :CPF, senha = :senha, dataNasc = :dataNasc, email = :email, telefone = :telefone, sexo = :sexo, foto = :foto WHERE id = :id",
+			"UPDATE usuario SET nome = :nome, sobrenome = :sobrenome, CPF = :CPF, senha = :senha, dataNasc = :dataNasc, email = :email, telefone = :telefone, sexo = :sexo, foto = :foto, tipo = :tipo, emailVerificacao = :emailVerificacao WHERE id = :id",
 			[
 				'nome' => $usuario->getNome(),
 				'sobrenome' => $usuario->getSobrenome(),
@@ -172,6 +175,8 @@
 				'telefone' => $usuario->getTelefone(),
 				'sexo' => $usuario->getSexo(),
 				'foto' => $usuario->getFoto(),
+				'tipo' => $usuario->getTipo(),
+				'emailVerificacao' => $usuario->getEmailVerificacao(),
 				'id' => $usuario->getCodigo()
 			]
 		);

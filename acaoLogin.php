@@ -27,7 +27,11 @@ function logar($user, $senha) {
         $_SESSION['codigo']= $usuario->getCodigo();
         $_SESSION['foto'] = $usuario->getFoto();
         $_SESSION['senha'] = $usuario->getSenha();
+        $_SESSION['tipo'] = $usuario->getTipo();
+        if($_SESSION['tipo'] == 'usuario')
         header("location:index.php");
+        else
+        header('location:admin.php');
     } else {
         header("location:info.php?error=1");
     }

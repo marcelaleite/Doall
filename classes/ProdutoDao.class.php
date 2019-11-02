@@ -7,14 +7,15 @@
 	 */
 
 	public static function Insert(Produto $produto, $idUsuario, $idEndereco) {
-		return StatementBuilder::insert("INSERT INTO produto (nome, descricao, localizacao, fotos, idUsuario, verificacao) VALUES (:nome, :descricao, :localizacao, :fotos, :idUsuario, :verificacao)",
+		return StatementBuilder::insert("INSERT INTO produto (nome, descricao, localizacao, fotos, idUsuario, verificacao, tipo) VALUES (:nome, :descricao, :localizacao, :fotos, :idUsuario, :verificacao, :tipo)",
 			[
 				'nome' => $produto->getNome(),
 				'descricao' => $produto->getDescricao(),
 				'localizacao' => $idEndereco, 
 				'fotos' => $produto->getFoto(),
 				'idUsuario' => $idUsuario,
-				'verificacao' => $produto->getVerificacao()
+				'verificacao' => $produto->getVerificacao(),
+				'tipo' => $produto->getTipo()
             ]
         );
     }
@@ -31,6 +32,7 @@
 		$produto->setDescricao($row['descricao']);
 		$produto->setFoto($row['fotos']);
 		$produto->setVerificacao($row['verificacao']);
+		$produto->setTipo($row['tipo']);
 		return $produto;
 	}
 
@@ -50,7 +52,7 @@
 					break;
 
 				case 'todos':
-					$sql = "SELECT * FROM produto";
+					$sql = "SELECT * FROM produto order by verificacao";
 					break;
 			}
 
@@ -115,13 +117,15 @@
 
 	public static function Update(Produto $produto, $localizacao_id) {
 		return StatementBuilder::update(
-			"UPDATE produto SET nome = :nome, descricao = :descricao, localizacao = :localizacao, fotos = :fotos WHERE id = :id",
+			"UPDATE produto SET nome = :nome, descricao = :descricao, localizacao = :localizacao, fotos = :fotos, tipo = :tipo, verificacao = :verificacao WHERE id = :id",
 			[
 				'nome' => $produto->getNome(),
 				'descricao' => $produto->getDescricao(),
 				'localizacao' => $localizacao_id,
-                'fotos' => $produto->getFoto(),
-                'id' => $produto->getCodigo()
+				'fotos' => $produto->getFoto(),
+				'tipo' => $produto->getTipo(),
+				'verificacao' => $produto->getVerificacao(),
+				'id' => $produto->getCodigo()
 			]
 		);
 	}

@@ -34,6 +34,8 @@ if ($acao == "crie") {
     $usuario->setNProrocolo($numprot);
     $usuario->setSenha($senha);
     $usuario->setFoto(null);
+    $usuario->setTipo('usuario');
+    $usuario->setEmailVerificacao(0);
     
     $verificar = UsuarioDao::VerificaCadastro($usuario);
     if ($verificar != 0) {

@@ -2,7 +2,7 @@
 require_once 'autoload.php';
 
 class Usuario extends AbsCodigo {
-    private $nome, $sobrenome, $cpf, $dataNasc, $email, $telefone, $sexo, $nProtocolo, $senha, $foto, $endereco = array(), $meusProdutos = array(), $produtosRequisitados = array();
+    private $nome, $sobrenome, $cpf, $dataNasc, $email, $telefone, $sexo, $nProtocolo, $senha, $foto, $endereco = array(), $meusProdutos = array(), $produtosRequisitados = array(), $tipo, $emailVerificacao;
 
 
     function getNome()
@@ -68,6 +68,16 @@ class Usuario extends AbsCodigo {
     function getProdutosRequisitados()
     {
         return $this->produtosRequisitados;
+    }
+
+    function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    function getEmailVerificacao()
+    {
+        return $this->emailVerificacao;
     }
 
     function setNome($nome)
@@ -139,6 +149,16 @@ class Usuario extends AbsCodigo {
         if ($pr instanceof Requisicao) {
             array_push($this->produtosRequisitados, $pr);
         }
+    }
+
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
+    }
+    
+    public function setEmailVerificacao($emailVerificacao)
+    {
+        $this->emailVerificacao = $emailVerificacao;
     }
 
     public function geraSelectEndereco($selected){
