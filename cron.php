@@ -23,6 +23,7 @@
                     $headers = "De:". $from;
 
                     mail($to, $subject, $message, $headers);
+                    RequisicaoDao::DeletarDiferente($requisicao[2]);
                 }
             }
         }

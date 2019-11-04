@@ -116,5 +116,15 @@
 		);
 	}
 
-    }
+	public static function DeletarDiferente($id)
+	{
+		return StatementBuilder::delete(
+			"DELETE FROM produto WHERE idProduto != :idProduto",
+			['idProduto' => $id]
+		);
+	}
+
+	}
+	
+	
 ?>
