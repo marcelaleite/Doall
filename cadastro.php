@@ -3,21 +3,22 @@
 
 <head>
     <title>Doall | Cadastro</title>
-    <?php require_once "funcoes.php";
-    include 'head.php'; ?>
-    <style>
-    </style>
+    <?php 
+        require_once "funcoes.php";
+        require_once 'head.php'; 
+    ?>
 </head>
 
 <body class="grey lighten-3">
     <!-- Cabeçalho -->
     <?php echo header1();
     require_once 'login.php'; ?>
-    <main class="col s12">
+    <main>
         <!-- Quadro de cadastro -->
 
         <div class="parallax-container">
-            <div class="parallax"><img src="img/fundo.jpg" style="transform: translate3d(-50%, 59.761px, 0px); opacity: 1;"></div>
+            <div class="parallax"><img src="img/fundo.jpg"
+                    style="transform: translate3d(-50%, 59.761px, 0px); opacity: 1;"></div>
         </div>
         </div>
         <div class="section">
@@ -25,14 +26,17 @@
                 <h4 class="roxo-text ">Identificação</h4>
             </div>
             <br>
-            <div class="row col s12">
-                        <div class="center">
-                    <input type='button' name="tr" id="tr" class="btn tooltipped" data-position="top" value="Sem protocolo" data-tooltip="O número é dado pelo CRAS se você for de baixa renda">
+            <div class="row">
+                <div class="col s12">
+                    <div class="center">
+                    <input type='button' name="tr" id="tr" class="btn tooltipped" data-position="top"
+                        value="Sem protocolo" data-tooltip="O número é dado pelo CRAS se você for de baixa renda">
+                        </div>
                 </div>
             </div>
-            <div class="row col s12">
-                <form class="grey lighten-3 " method="post" action="acao.php" id="formu">
-                    <div class="row col s12">
+            <form class="grey lighten-3 " method="post" action="acao.php" id="formu">
+                <div class="row">
+                    <div class="col s12">
                         <div class="input-field col l3 m3 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">account_circle</i>
                             <input required id="nome" name="nome" type="text">
@@ -48,9 +52,11 @@
                             <span class="helper-text" data-error="CPF não valido"></span>
                         </div>
                     </div>
-                    <br class="hide-on-med-and-down ">
+                </div>
+                <br class="hide-on-med-and-down ">
 
-                    <div class="row col s12">
+                <div class="row">
+                    <div class="col s12">
                         <div class="input-field col l2 m2 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">event</i>
                             <input required id="dtnascimento" name="dtnascimento" type="text" data-mask="00/00/0000">
@@ -68,7 +74,7 @@
                             <i class="material-icons prefix">email</i>
                             <input required id="email" name="email" type="email" class="">
                             <label for="email">Email</label>
-                            
+
                         </div>
                         <div class="input-field col l2 m2 s10 offset-s1">
                             <i class="material-icons prefix">call</i>
@@ -76,17 +82,19 @@
                             <label for="telefone">Celular</label>
                         </div>
                     </div>
+                </div>
 
-                    <br class="hide-on-med-and-down ">
+                <br class="hide-on-med-and-down ">
 
-                    <div class="row col s12">
+                <div class="row">
+                    <div class="col s12">
                         <div class="input-field col l3 m3 s10 offset-l1 offset-m1 offset-s1 ">
                             <i class="material-icons prefix">https</i>
-                            <input required id="senha" name="senha" type="password" class="validate">
+                            <input required id="senha" name="senha" type="password" class="validate" minlength="6">
                             <label for="senha">Senha</label>
                         </div>
                         <div class="input-field col l3 m3 s10 offset-s1">
-                            <input id="confsenha" name="confsenha" type="password">
+                            <input id="confsenha" name="confsenha" type="password" minlength="6">
                             <label id="lblconfsenha" for="confsenha">Confirmar senha</label>
                             <span class="helper-text" data-error="Senhas não coincidem"></span>
                         </div>
@@ -96,20 +104,25 @@
                             <label for="numprot">Nº de protocolo</label>
                         </div>
                     </div>
+                </div>
 
 
-                    <br class="hide-on-med-and-down ">
-                    <br class="hide-on-med-and-down ">
-                    <br class="hide-on-med-and-down ">
-                    <div class="row col s12">
+                <br class="hide-on-med-and-down ">
+                <br class="hide-on-med-and-down ">
+                <br class="hide-on-med-and-down ">
+                <div class="row">
+                    <div class="col s12">
                         <div class="center">
                             <h4 class="roxo-text ">Endereço</h4>
                         </div>
                     </div>
-                    <div class="row col s12">
+                </div>
+                <div class="row">
+                    <div class="col s12">
                         <div class="input-field col l2 m2 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">place</i>
-                            <input required id="cep" name="cep" type="text" data-mask="00000-000">
+                            <input required id="cep" name="cep" type="text" data-mask="00000-000"
+                                onblur="pesquisacep(this.value)">
                             <label for="cep">CEP</label>
                         </div>
                         <div class="input-field col l3 m3 s10 offset-s1">
@@ -126,10 +139,12 @@
                             <label for="bairro">Bairro</label>
                         </div>
                     </div>
+                </div>
 
-                    <br class="hide-on-med-and-down ">
+                <br class="hide-on-med-and-down ">
 
-                    <div class="row col s12">
+                <div class="row">
+                    <div class="col s12">
                         <div class="input-field col l4 m4 s10 offset-l1 offset-m1 offset-s1">
                             <i class="material-icons prefix">home</i>
                             <input id="complemento" name="complemento" type="text">
@@ -147,15 +162,17 @@
                             <label for="referencia">Referência</label>
                         </div>
                     </div>
-                    <div class="row col s12">
+                </div>
+                <div class="row">
+                    <div class="col s12">
                         <div class="center">
-                            <button class="btn waves-effect waves-light" id="acao" type="button" name="acao" value="crie" onclick="insertData()">Enviar
+                            <button class="btn waves-effect waves-light" id="acao" type="button" name="acao"
+                                value="crie" onclick="insertData()">Enviar
                             </button>
                         </div>
                     </div>
-            </div>
+                </div>
             </form>
-        </div>
         </div>
     </main>
     <!-- Rodapé -->

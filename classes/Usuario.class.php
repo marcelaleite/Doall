@@ -172,4 +172,8 @@ class Usuario extends AbsCodigo {
         }
         return $options;
     }
+
+    public function hash(){
+        return md5("DoallRecuperaSenha".$this->getEmail().$this->getSenha().$this->getCpf());
+    }
 }

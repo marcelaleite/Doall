@@ -30,16 +30,14 @@ function header1()
     return '<header>
         <nav class="roxo">
             <div class="nav-wrapper" >
-                <a href="#" class="brand-logo center">Doall</a>
+                <a href="info.php" class="brand-logo center">Doall</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul  id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="info.php">Pagina Inicial</a>
+                <ul  id="nav-mobile" class="right hide-on-med-and-down">    
                     <li><a href="cadastro.php">Cadastro</a></li>
                    <li><a class="modal-trigger" href="#login">Login</a></li>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="info.php">Pagina Inicial</a></li>
             <li><a href="cadastro.php">Cadastro</a></li>
              <li><a class="modal-trigger" href="#login">Login</a></li>
         </ul>

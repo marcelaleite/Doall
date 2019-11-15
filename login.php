@@ -1,7 +1,7 @@
 <style>
     a.btn{
   margin-top: 30%;
-}
+  }
 .modal {
  max-height:100%;
  overflow:hidden;
@@ -39,6 +39,9 @@ input[type="submit"]{
               <button class="btn waves-effect waves-light roxo"  type="submit" name="acao"  onclick='insertData()'value="login">Enviar</button>
         </div>
         </form>
+        <div class="left">
+          <a href="recuperaemail.php">Esqueceu a senha?</a>
+        </div>
     </div>
   </div>
 </div>

@@ -10,8 +10,8 @@ $email = isset($_POST['email']) ? $_POST['email'] : 0;
 $telefone = isset($_POST['telefone']) ? $_POST['telefone'] : 0;
 $sexo = isset($_POST['sexo']) ? $_POST['sexo'] : 0;
 $numprot = null;
-if(isset($_POST['numprot']) and $_POST['numprot'] != 0)
-$numprot = $_POST['numprot'];
+if (isset($_POST['numprot']) and $_POST['numprot'] != 0)
+    $numprot = $_POST['numprot'];
 $cep = isset($_POST['cep']) ? $_POST['cep'] : 0;
 $rua = isset($_POST['rua']) ? $_POST['rua'] : 0;
 $numero = isset($_POST['numcasa']) ? $_POST['numcasa'] : 0;
@@ -36,7 +36,7 @@ if ($acao == "crie") {
     $usuario->setFoto(null);
     $usuario->setTipo('usuario');
     $usuario->setEmailVerificacao(0);
-    
+
     $verificar = UsuarioDao::VerificaCadastro($usuario);
     if ($verificar != 0) {
         echo "CPF ou email já utilizados";
@@ -81,34 +81,66 @@ if ($acao == "crie") {
     if ($verificar[0][0] == 0 and $_FILES['arquivo']['name'] != '') {
         $upload = new Upload;
         $nova_foto = $upload->uploadImagem('arquivo', 'img/Usuario/');
-        var_dump($nova_foto);   
-        if(!is_array($nova_foto)){
-        $antiga_foto = $usuario->getFoto();
-        $usuario->setFoto($nova_foto);
-        if(UsuarioDao::Update($usuario)){
-            unlink($antiga_foto);
-            $_SESSION['foto'] = $usuario->getFoto();
+        var_dump($nova_foto);
+        if (!is_array($nova_foto)) {
+            $antiga_foto = $usuario->getFoto();
+            $usuario->setFoto($nova_foto);
+            if (UsuarioDao::Update($usuario)) {
+                unlink($antiga_foto);
+                $_SESSION['foto'] = $usuario->getFoto();
+                $_SESSION['nome'] = $usuario->getNome();
+                $_SESSION['usuario'] = $usuario->getCpf();
+            } else {
+                unlink($nova_foto);
+            }
+        }
+    } elseif ($verificar != 0) {
+        $usuario->setFoto($_SESSION['foto']);
+        if (UsuarioDao::Update($usuario)) {
             $_SESSION['nome'] = $usuario->getNome();
             $_SESSION['usuario'] = $usuario->getCpf();
-        } 
-        else{
-            unlink($nova_foto);
-        }
-    }
-    }
-     elseif ($verificar != 0) {
-        $usuario->setFoto($_SESSION['foto']);
-        if(UsuarioDao::Update($usuario)){
-        $_SESSION['nome'] = $usuario->getNome();
-        $_SESSION['usuario'] = $usuario->getCpf();
         }
     } else {
         $usuario->setFoto(null);
-        if(UsuarioDao::Update($usuario)){
+        if (UsuarioDao::Update($usuario)) {
             $_SESSION['nome'] = $usuario->getNome();
             $_SESSION['usuario'] = $usuario->getCpf();
         }
     }
-   
+
     header("location:conta.php");
+}
+
+elseif($acao == 'recuperar'){
+    $usuarios = UsuarioDao::Select('email', $email);
+    $usuario = $usuarios[0];
+    $hash = $usuario->hash();
+    $email = $usuario->getEmail();
+    $link = "doall.tech/novasenha.php?hash=$hash&email=$email";
+    $to = $usuario->getEmail();
+
+    $subject = "Alteração de Senha";
+
+    $message = "Para recuperar sua senha \n <button><a href='{$link}'>Clique aqui</a></button>";
+
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html;' . "\r\n";
+    $headers .= "From: $email";
+
+    if(mail($to, $subject, $message, $headers)){
+        header("location:recuperaemail.php?email=success");
+    }
+    else{
+        header("location:recuperaemail.php?email=fail");
+    }
+}
+
+elseif($acao == 'alterarSenha'){
+    $usuarios = UsuarioDao::Select('email', $email);
+    $usuario = $usuarios[0];
+    $usuario->setSenha($senha);
+    if(UsuarioDao::Update($usuario))
+        header("location:novasenha.php?senha=success");
+    else
+        header("location:novasenha.php?senha=fail");
 }

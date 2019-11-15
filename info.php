@@ -4,11 +4,10 @@
         <title>Doall | Tela Inicial</title>
         <?php
         include 'head.php';
-        $li = "va";
         ?>
     </head>
 
-    <body class="grey lighten-3" onload="erro = document.getElementById('error').value; if(erro != '') Swal.fire({type: 'error',title: 'Erro',text: 'Usuário ou senha incorretos'});">
+    <body class="grey lighten-3">
         <!-- Cabeçalho -->
         <?php
         require_once "funcoes.php";
@@ -42,6 +41,13 @@
             echo footer();
         ?>
     </body>
+    <script>
+    window.addEventListener("load", function(event) {
+        erro = document.getElementById('error').value; 
+        if(erro != '')
+        Swal.fire({type: 'error',title: 'Erro',text: 'Usuário ou senha incorretos'})
+    });
+</script>
     <?php
     require_once 'javas.html'; ?>
 </html>

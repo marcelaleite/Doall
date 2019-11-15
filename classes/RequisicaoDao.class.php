@@ -119,7 +119,7 @@
 	public static function DeletarDiferente($id)
 	{
 		return StatementBuilder::delete(
-			"DELETE FROM produto WHERE idProduto != :idProduto",
+			"DELETE FROM requisicao WHERE idProduto != :idProduto",
 			['idProduto' => $id]
 		);
 	}
