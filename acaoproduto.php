@@ -12,7 +12,29 @@ if($acao == "requisitar"){
     $requisicao->setVerificacao(0);
     $id = isset($_POST['id'])?$_POST['id']:'';
     RequisicaoDao::Insert($requisicao ,$_SESSION['codigo'], $id);
+    $produtos = ProdutoDao::Select('id', $id);
+    $produto = $produtos[0];
+    if($produto->getTipo() == "Comida não Perecivel" or $produto->getTipo() == "Roupa"){
+        if($_SESSION['nProtocolo'] != null){
+            $requisicao->setVerificacao(1);
+            if(RequisicaoDao::Update($requisicao, $_SESSION['codigo'], $id)){
+                $produtos = ProdutoDao::Select('id', $id);
+                    $produto = $produtos[0];
+                    $from = "naoresponda@doall.tech";
 
+                    $to = $usuario->getEmail();
+
+                    $subject = "Produto Solicitado";
+
+                    $message = "O produto solicitado {$produto->getNome()} está disponivel para retirada";
+
+                    $headers = "De:". $from;
+
+                    mail($to, $subject, $message, $headers);
+                    RequisicaoDao::DeletarDiferente($id);
+            }
+        }
+    }
     header("location:index.php");
 }
 
